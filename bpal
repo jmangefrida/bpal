@@ -1,0 +1,141 @@
+-- MySQL dump 10.13  Distrib 5.5.34, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: bpal
+-- ------------------------------------------------------
+-- Server version	5.5.34-0ubuntu0.12.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (72,'A Picnic in Arkham'),(54,'Anniversary'),(62,'Ars Amatoria'),(63,'Ars Draconis'),(64,'Ars Moriendi'),(65,'Bewitching Brews'),(87,'Boom! Studios'),(80,'Carnaval Diabolique'),(93,'Dawn'),(66,'Diabolus'),(67,'Excolo'),(60,'Forum Only'),(84,'Fraggle Rock'),(52,'Gaiman'),(49,'General_Catalog'),(94,'Grendel'),(89,'Gris Grimly'),(53,'Halloweenie'),(90,'Hellboy'),(91,'Hero Initiative'),(68,'Illyria'),(83,'Labyrinth'),(95,'Lady Death'),(61,'Lunacy'),(50,'Lupercalia'),(69,'Mad Tea Party'),(70,'Marchen'),(79,'Panacea'),(86,'Pandora'),(82,'Paranorman'),(71,'Pharmacopoeia'),(77,'Phoenix Steamworks'),(73,'Rappaccini\\\'s Garden'),(74,'RPG'),(51,'Shunga'),(75,'Sin & Salvation'),(76,'Somnium'),(1,'Test'),(88,'The District'),(85,'The Last Unicorn'),(81,'VILF'),(78,'Wanderlust'),(92,'Witchblade'),(57,'yomama'),(48,'Yule');
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `perfume_Template`
+--
+
+DROP TABLE IF EXISTS `perfume_Template`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `perfume_Template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `picture` varchar(128) DEFAULT NULL,
+  `description` text,
+  `discontinued` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_category` (`category_id`),
+  CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `perfume_Template`
+--
+
+LOCK TABLES `perfume_Template` WRITE;
+/*!40000 ALTER TABLE `perfume_Template` DISABLE KEYS */;
+INSERT INTO `perfume_Template` VALUES (11,54,'test','','test',NULL),(12,50,'Playful Wooden Mallets','','Black musk and Ceylon cinnamon',NULL),(13,49,'The Antikythera Mechanism','','Teakwood, oak, black vanilla, and tobacco.',NULL),(14,61,'Pink Moon 2012','','This Lunar blend is soft with phlox, tulip, daffodil, pink columbine, delphinium, pink carnation, peony, and muscari, dusted with pink sugar and honey, bourbon vanilla, a hint of white chocolate, and a touch of the first strawberries of the season.',NULL),(15,48,'A Wonderful Light','','Three radiant ambers with honey, linden blossom, bourbon vanilla, and orange zest.',NULL),(18,54,'test4','IMG00035-20100918-1850.jpg','test',0),(19,53,'Wolf Spider','','Tonka bean, patchouli, bourbon vanilla, Cuban tobacco, coconut, clary sage, galbanum, white musk, and chamomile.',NULL),(20,67,'Coyote','','The warmth of doeskin, dry plains grasses and soft, dusty woods warmed by amber and a downy, gentle coat of deep musk.',NULL),(21,61,'Honey Moon 2013','','Honey Moon contains five different honeys, ranging from pale and sweet to deep and heady, with hints of jasmine, white gardenia, Hawaiian white ginger and thyme.',NULL),(22,48,'Pumpkin Masala Rooibos','','Rooibos tea with red ginger, green cardamom, fennel, peppercorns, almond, and licorice, sweetened with coconut sugar and jaggery.',NULL),(23,48,'Black Temple Burlesque Troupe','','Cacao, black musk, and tobacco absolute.',NULL),(24,49,'test1','','test1',NULL),(25,49,'test2','','testing',NULL),(26,93,'test3','','test',NULL),(27,94,'test5','','hmjjhg',NULL),(28,72,'test11','','rser',NULL),(29,52,'Anesthesia','','A scent that slips through the cracks: peppermint, lavender, bergamot, and mandrake.',NULL),(30,72,'Banana Peel in a Graveyard','','A banana peel discarded among tombstones and crypts.',NULL);
+/*!40000 ALTER TABLE `perfume_Template` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `perfume_users`
+--
+
+DROP TABLE IF EXISTS `perfume_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `perfume_users` (
+  `user_id` int(11) NOT NULL,
+  `perfume` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `imps` int(11) DEFAULT NULL,
+  `bottles` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `location` varchar(128) DEFAULT NULL,
+  `notes` text,
+  PRIMARY KEY (`perfume`,`user_id`),
+  KEY `fk_users` (`user_id`),
+  KEY `fk_perfume` (`perfume`),
+  CONSTRAINT `fk_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `perfume_users`
+--
+
+LOCK TABLES `perfume_users` WRITE;
+/*!40000 ALTER TABLE `perfume_users` DISABLE KEYS */;
+INSERT INTO `perfume_users` VALUES (0,12,10,0,2,0,'Cabinet of Doom','herp derp'),(0,13,10,1,1,0,'Jimmy\\\'s cabinet','This smells sexy as shit on Jimmy.  It smells like maple syrup on me.  Weird.'),(0,14,9,0,1,0,'Cabinet of Doom','yayayayayaa'),(0,15,10,0,2,0,'Cabinet of Doom','Little Match Girl literary series'),(0,19,9,0,1,0,'',''),(0,20,10,1,1,0,'',''),(0,21,10,0,1,0,'',''),(0,22,8,0,1,0,'',''),(0,23,9,0,1,0,'',''),(0,29,9,0,1,0,'','');
+/*!40000 ALTER TABLE `perfume_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (0,'amb18','4d0f7cd43485fe31a8f4bfac43291b62',1),(1,'testing','sdfasfwe3rwfs3343',0);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-12-14 21:00:54
